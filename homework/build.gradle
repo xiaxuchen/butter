@@ -1,0 +1,62 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.kotlin.jvm'
+    id 'war'
+    id 'kotlin-noarg'
+    id 'kotlin-allopen'
+}
+
+sourceSets {
+    main{
+        java {
+            srcDir 'src/main/java' // 指定源码目录
+        }
+        kotlin{
+            srcDir 'src/main/kotlin'
+        }
+        resources {
+            srcDir 'src/main/resources' //资源目录
+        }
+    }
+}
+
+group 'com.xxc'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compileOnly group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
+    compile 'jstl:jstl:1.2'
+    implementation project(":mineMvc")
+    implementation project(":Annotations")
+    implementation project(":ButterDao")
+    implementation project(":Commons")
+    runtime "mysql:mysql-connector-java:5.1.35"
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+//编译之前先清理之前的编译产物
+compileJava.dependsOn clean
+
+war{
+    webAppDirName = "${projectDir}/src/main/webapp"
+    webXml = file("${projectDir}/src/main/webapp/WEB-INF/web.xml")
+}
+
+noArg {
+    annotation("com.xxc.bean.NoArg")
+}
+
+allOpen {
+    annotation("com.xxc.bean.AllOpen")
+}

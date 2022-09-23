@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+
+    <welcome-file-list>
+        <welcome-file>page/user/login.jsp</welcome-file>
+    </welcome-file-list>
+
+    <context-param>
+        <param-name>JDBCPropertiesPath</param-name>
+        <param-value>jdbc.properties</param-value>
+    </context-param>
+
+    <!--<filter>-->
+        <!--<filter-name>resourceFilter</filter-name>-->
+        <!--<filter-class>com.xxc.homework.filter.ResourceFilter</filter-class>-->
+        <!--<init-param>-->
+            <!--<param-name>/cart*</param-name>-->
+            <!--<param-value>1</param-value>-->
+        <!--</init-param>-->
+        <!--<init-param>-->
+            <!--<param-name>/index.jsp</param-name>-->
+            <!--<param-value>1</param-value>-->
+        <!--</init-param>-->
+        <!--<init-param>-->
+            <!--<param-name>/cart.do</param-name>-->
+            <!--<param-value>1</param-value>-->
+        <!--</init-param>-->
+        <!--<init-param>-->
+            <!--<param-name>/game/game.jsp</param-name>-->
+            <!--<param-value>1</param-value>-->
+        <!--</init-param>-->
+    <!--</filter>-->
+
+    <!--<filter-mapping>-->
+        <!--<filter-name>resourceFilter</filter-name>-->
+        <!--<url-pattern>/*</url-pattern>-->
+    <!--</filter-mapping>-->
+
+    <filter>
+        <filter-name>encoding</filter-name>
+        <filter-class>com.xxc.mvc.filter.AEncodingFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>encoding</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+    <filter>
+        <filter-name>dispatcher</filter-name>
+        <filter-class>com.xxc.mvc.filter.DispatchFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>dispatcher</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <context-param>
+        <param-name>Controllers</param-name>
+        <param-value>com.xxc.homework.controller</param-value>
+    </context-param>
+
+    <listener>
+        <listener-class>com.xxc.mvc.listener.ControllerInitListener</listener-class>
+    </listener>
+    
+    <listener>
+        <listener-class>com.xxc.better.listener.JDBCListener</listener-class>
+    </listener>
+
+</web-app>

@@ -1,0 +1,16 @@
+.inner-bg{
+    padding: 200px 0 300px 0 ;
+}
+.form-title{
+    padding: 25px 25px 15px 5px;
+    border-radius: 5px 5px 0 0;
+    background-color: #fff;
+}
+.form-bottom{
+    padding: 5px 25px 25px 25px;
+    border-radius: 0 0 5px 5px;
+    background-color: #eee;
+}
+body{
+    background-image:url("../../user_assets/img/backgrounds/1.jpg");
+}

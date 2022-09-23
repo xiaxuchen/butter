@@ -1,0 +1,10 @@
+rootProject.name = 'Homework'
+include 'ButterDao'
+include 'KotlinTest'
+include 'mineMvc'
+include 'Annotations'
+include 'Commons'
+include 'ButterDaoSample'
+include 'Security'
+include 'homework'
+

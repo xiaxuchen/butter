@@ -1,0 +1,18 @@
+.inner_background {
+  margin-top: 100px;
+  width: 1024px;
+  height: 548px;
+  background: url("/images/img.jpg") no-repeat;
+}
+.inner_background .title {
+  padding-top: 100px;
+}
+.inner_background .start {
+  margin-top: 200px;
+}
+.inner_background .form {
+  margin-top: 100px;
+}
+.inner_background .msg {
+  margin-top: 50px;
+}

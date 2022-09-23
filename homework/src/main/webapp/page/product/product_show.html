@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>商品分类</title>
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <!-- Bootstrap -->
+    <link href="../../css/bootstrap.css" rel="stylesheet">
+    <link href="../../css/reset.css" rel="stylesheet">
+
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+    <script src="../../js/html5shiv.min.js"></script>
+    <script src="../../js/respond.min.js"></script>
+    <![endif]-->
+    <style rel="stylesheet" type="text/css">
+        .product_category_secondary{
+            background-color: white;
+        }
+        .product_category_secondary li{
+            padding: 5px 20px ;
+            display: inline-block;
+            float: left;
+        }
+        .category{
+            padding: 25px;
+            background:linear-gradient(#dcdcdc,#eeffffff);
+            margin-top: -5px;
+        }
+
+        .product_category_primary{
+        }
+        .product_category_primary ul{
+            width: 100%;
+            margin: 0 auto;
+            list-style: none;
+        }
+        .product_category_primary ul li.checked{
+            background-color: #5bc0de;
+            color: #fff;
+        }
+        .product_category_primary ul li:first-child{
+            border-top: 1px solid gainsboro;
+        }
+        .product_category_primary ul li{
+            border: 1px solid gainsboro;
+            border-top:0;
+            margin: 0 auto;
+            padding: 5px 0;
+            text-align: center;
+            background-color: white;
+            color: green;
+        }
+        .product_category_primary ul li.checked:hover{
+            background-color: #5bc0de;
+        }
+        .product_category_primary ul li:hover{
+            background-color: #ccc;
+        }
+        .products{
+            width: 81%;
+            box-sizing: padding-box;
+            margin: 0 auto;
+        }
+        .product-img{
+            width: 216px;
+            height: 120px;
+        }
+        .product-img>img{
+            width: 100%;
+            height: 120px;
+            display: block;
+            border: 1px solid #cccccc;
+        }
+        .product>*{
+            cursor: pointer;
+        }
+        .product{
+            float: left;
+            width: 210px;
+            height: 252px;
+            margin-left:15px;
+        }
+        .product-name,.product-des,.product-price{
+            padding: 5px 0;
+        }
+        .product-name{
+            font-size: 16px;
+            font-weight: 500;
+        }
+        .product-des{
+            font-size: 12px;
+            color: #8c8c8c;
+        }
+        .product-price a{
+            font-size: 14px;
+            color: red;
+        }
+        .product-cart{
+            margin-left: 10px;
+        }
+        .category_child{
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!--nav-->
+    <nav class="navbar navbar-default" role="navigation" style="margin: 0">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="#" style="padding: 0 15px">
+                        <div>
+                            <img style="float: left" alt="地猫购物" src="../../images/icon.png" width="48">
+                            <div class="text-center" style="float: left;line-height: 50px"><span>地猫购物</span></div>
+                        </div>
+                    </a>
+                </a>
+            </div>
+            <div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">首页</a></li>
+                    <li onclick="goPage(this,'cart',{});"><a>购物车</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="content">
+    </div>
+    <div class="modal fade" tabindex="-1" id="alertDialog"  role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    <p>One fine body&hellip;</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">知道了</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+    <script src="../../js/jquery.js"></script>
+    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+    <script src="../../js/bootstrap.js"></script>
+    <script>
+        let checked;
+        let $alertDialog;
+        let $content;
+        let $nav_active;
+        $(document).ready(()=>{
+            $nav_active = $(".navbar .active");
+            $content = $("#content");
+            $alertDialog = $("#alertDialog");
+            getProducts(null)
+        });
+
+        function goPage(e,page,param) {
+            let $ele = $(e);
+            switch (page) {
+                case "cart":$.get("/cart/show",param,(data)=>{
+                    alert(data);
+                    $content.html(data);
+                    $nav_active.removeClass("active");
+                    $ele.addClass("active");
+                    $nav_active = $ele;
+                    console.log(data);
+                })
+            }
+        }
+
+        function showDialog(title,msg) {
+            $alertDialog.find(".modal-title").text(title);
+            $alertDialog.find(".modal-body p").text(msg);
+            $alertDialog.modal('show');
+        }
+
+        /**
+         * 切换一级分类选择状态
+         * @param e 点击的元素
+         * @param pid 父分类id
+         */
+        function toggleChecked(e,pid){
+            checked.removeClass("checked");
+            let $e = $(e);
+            $e.addClass("checked");
+            checked = $e;
+            $.get("../../category/children?pid="+pid,{},(data,status)=>{
+                if(status === "success") {
+                    let pro_secondary = $(".product_category_secondary");
+                    if(data.length === 0){
+                        pro_secondary.html($("<div style='width: 100%;height: 100%;text-align: center'><span>当前暂无分类</span></div>"));
+                        return;
+                    }
+                    getProducts(data[0].id,pid);
+                }
+            })
+        }
+        function buy() {
+            showDialog("提示","购买成功")
+        }
+
+        function getProducts(cid,pid,curPage) {
+            let url = "../../product/show";
+            if(cid != null)
+                url += "?cid="+cid;
+            if(pid != null)
+                url += "&pid="+pid;
+            if(curPage != null)
+                url += "&curPage="+curPage;
+            $.get(url,{},(data,status)=>
+            {
+                if(status === "success")
+                {
+                    $("#content").html(data);
+                    checked = $(".checked");
+                    $(".product_category_secondary").
+                    css("height",$(".product_category_primary").css("height"));
+                }
+            })
+
+        }
+        function addToCart(productId) {
+            $.post("../../cart/add",{"productId":productId},(data,status)=>{
+                if(status === "success" && data === "true")
+                {
+                    showDialog("提示","添加到购物车成功")
+                }
+                else {
+                    showDialog("提示","添加到购物车失败")
+                }
+            })
+        }
+    </script>
+</body>
+</html>

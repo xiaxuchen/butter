@@ -1,0 +1,64 @@
+.mixin-border {
+  border: 1px solid black;
+}
+
+.font-bigger {
+  font-size: 1.5em;
+}
+
+
+body {
+  background-color: #f5f6f7;
+}
+
+.content {
+  & > li > ul > li .username {
+    line-height: 30px;
+  }
+  background: #f5f6f7 !important;
+  & > li {
+    background: #f5f6f7 !important;
+  }
+  & > li:nth-last-child(n+2) {
+    border-bottom: none;
+  }
+  & > li:nth-child(n+2) {
+    border-top: none;
+  }
+
+}
+
+.root {
+  margin: 10px auto;
+  .btn-commit {
+    margin-top: 20px;
+  }
+  .head-img {
+    vertical-align: middle;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: cyan 0.5px solid;
+    margin-right: 10px;
+  }
+  #board {
+    margin-top: 5px;
+  }
+}
+
+.page_count{
+  display: inline-block;
+  margin-right: 20px;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+}
+
+.not_cur_page{
+  border: #55cccccc 0.5px solid;
+  background-color: #FFFFFF;
+  &:hover{
+    border: #2aabd2 0.5px solid;
+    background-color:cyan;
+  }
+}
