@@ -1,5 +1,5 @@
 # 项目由来
-大三上学期javaweb课程老师不允许使用ssm完成课程设计，由于自己学习了ssm以及kotlin
+大二下学期javaweb课程老师不允许使用ssm完成课程设计，由于自己学习了ssm以及kotlin
 觉得kotlin语法糖比较方便，同时也在学习的过程中不断思考ssm的功能如何实现，于是
 根据自己所学的java知识以及查阅kotlin文档按照自己的思路完成了一个简版的mybatis和
 springmvc.
